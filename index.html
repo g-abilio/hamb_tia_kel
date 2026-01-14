@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamburgueria Delícia</title>
+    <title>Hamburgueria da Tia Kel</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -98,33 +98,38 @@
 </head>
 <body>
     <div class="container">
-        <h1>Hamburgueria Delícia</h1>
+        <h1>Hamburgueria da Tia Kel</h1>
         <p>Bem-vindo! Monte seu hambúrguer personalizado.</p>
         <button id="start">Monte seu Hambúrguer</button>
 
         <div id="bread-section" class="section">
             <h2>Escolha seu Pão</h2>
-            <label><input type="radio" name="bread" value="Ciabatta"> Ciabatta</label>
-            <label><input type="radio" name="bread" value="Pão gergelim"> Pão gergelim</label>
+            <label><input type="radio" name="bread" value="Ciabatta"> Pão Ciabatta</label>
+            <label><input type="radio" name="bread" value="Pão gergelim"> Pão de gergelim</label>
             <button id="next-to-ingredients">Próximo</button>
         </div>
 
         <div id="ingredients-section" class="section">
             <h2>Escolha seus Adicionais e Ingredientes</h2>
             <div class="ingredient-list">
-                <label><input type="checkbox" name="ingredient" value="Blend de 150g" checked> Blend de 150g (base)</label>
+                <h3>Blend</h3>
+                <label>Blend de 150g (base): <input type="number" name="blend-quantity" min="1" value="1" step="1"></label>
+
+                <h3>Adicionais</h3>
                 <label><input type="checkbox" name="ingredient" value="Bacon crocante"> Bacon crocante</label>
                 <label><input type="checkbox" name="ingredient" value="Queijo mussarela"> Queijo mussarela</label>
                 <label><input type="checkbox" name="ingredient" value="Queijo cheddar"> Queijo cheddar</label>
                 <label><input type="checkbox" name="ingredient" value="Queijo gorgonzola"> Queijo gorgonzola</label>
                 <label><input type="checkbox" name="ingredient" value="Crispy de cebola"> Crispy de cebola</label>
                 <label><input type="checkbox" name="ingredient" value="Crispy de mortadela defumada"> Crispy de mortadela defumada</label>
-                <label><input type="checkbox" name="ingredient" value="Cebola roxa"> Cebola roxa</label>
-                <label><input type="checkbox" name="ingredient" value="Cebola caramelizada"> Cebola caramelizada</label>
-                <label><input type="checkbox" name="ingredient" value="Alface"> Alface</label>
-                <label><input type="checkbox" name="ingredient" value="Tomate"> Tomate</label>
                 <label><input type="checkbox" name="ingredient" value="Batata palha caseira"> Batata palha caseira</label>
                 <label><input type="checkbox" name="ingredient" value="Molho de alho da casa"> Molho de alho da casa</label>
+                <label><input type="checkbox" name="ingredient" value="Cebola caramelizada"> Cebola caramelizada</label>
+
+                <h3>Salada</h3>
+                <label><input type="checkbox" name="ingredient" value="Cebola roxa"> Cebola roxa</label>
+                <label><input type="checkbox" name="ingredient" value="Alface"> Alface</label>
+                <label><input type="checkbox" name="ingredient" value="Tomate"> Tomate</label>
             </div>
             <div id="name-section">
                 <h2>Informe seu Nome</h2>
@@ -168,28 +173,28 @@
                 return;
             }
 
-            // Gerar índice crescente usando localStorage (persiste no navegador do usuário)
+
             let orderIndex = parseInt(localStorage.getItem('orderIndex') || '0');
             localStorage.setItem('orderIndex', (orderIndex + 1).toString());
 
             let orderMessage = `Pedido #${orderIndex} - Nome: ${customerName}\nPão: ${selectedBread}\nIngredientes: ${selectedIngredients.join(', ')}`;
 
-            const phoneNumber = '+5533984570099'; // número do restaurante (sem +)
+            const phoneNumber = '+5533984570099'; 
 
-if (navigator.share) {
-    navigator.share({
-        title: 'Pedido - Hamburgueria Delícia',
-        text: orderMessage
-    }).then(() => {
-        alert('Pedido enviado com sucesso!');
-    }).catch(() => {
-        alert('Envio cancelado.');
-    });
-} else {
-    // Fallback automático para SMS
-    const smsUrl = `sms:${phoneNumber}?body=${encodeURIComponent(orderMessage)}`;
-    window.location.href = smsUrl;
-}
+        if (navigator.share) {
+            navigator.share({
+                title: 'Pedido - Hamburgueria Delícia',
+                text: orderMessage
+            }).then(() => {
+                alert('Pedido enviado com sucesso!');
+            }).catch(() => {
+                alert('Envio cancelado.');
+            });
+        } else {
+            
+            const smsUrl = `sms:${phoneNumber}?body=${encodeURIComponent(orderMessage)}`;
+            window.location.href = smsUrl;
+        }
 
         });
     </script>
