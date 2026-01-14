@@ -173,29 +173,19 @@
                 return;
             }
 
-
+            // Gerar índice crescente usando localStorage (persiste no navegador do usuário)
             let orderIndex = parseInt(localStorage.getItem('orderIndex') || '0');
             localStorage.setItem('orderIndex', (orderIndex + 1).toString());
 
             let orderMessage = `Pedido #${orderIndex} - Nome: ${customerName}\nPão: ${selectedBread}\nIngredientes: ${selectedIngredients.join(', ')}`;
 
-            const phoneNumber = '+5533984570099'; 
+            // Enviar para WhatsApp
+            const whatsappNumber = '+5533984570099';
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderMessage)}`;
+            window.open(whatsappUrl, '_blank');
 
-        if (navigator.share) {
-            navigator.share({
-                title: 'Pedido - Hamburgueria Delícia',
-                text: orderMessage
-            }).then(() => {
-                alert('Pedido enviado com sucesso!');
-            }).catch(() => {
-                alert('Envio cancelado.');
-            });
-        } else {
-            
-            const smsUrl = `sms:${phoneNumber}?body=${encodeURIComponent(orderMessage)}`;
-            window.location.href = smsUrl;
-        }
-
+            // Mostrar popup
+            alert('O pedido foi feito! Você será redirecionado para o WhatsApp.');
         });
     </script>
 </body>
