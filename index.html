@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamburgueria Delícia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://source.unsplash.com/random/1920x1080/?burger'); /* Imagem de fundo temática */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #d32f2f;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #b71c1c;
+        }
+
+        .section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .ingredient-list {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        #name-section {
+            margin-top: 20px;
+        }
+
+        #customer-name {
+            padding: 10px;
+            font-size: 16px;
+            width: 80%;
+            margin-bottom: 10px;
+        }
+
+        #finalize {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hamburgueria Delícia</h1>
+        <p>Bem-vindo! Monte seu hambúrguer personalizado.</p>
+        <button id="start">Monte seu Hambúrguer</button>
+
+        <div id="bread-section" class="section">
+            <h2>Escolha seu Pão</h2>
+            <label><input type="radio" name="bread" value="Ciabatta"> Ciabatta</label>
+            <label><input type="radio" name="bread" value="Pão gergelim"> Pão gergelim</label>
+            <button id="next-to-ingredients">Próximo</button>
+        </div>
+
+        <div id="ingredients-section" class="section">
+            <h2>Escolha seus Adicionais e Ingredientes</h2>
+            <div class="ingredient-list">
+                <label><input type="checkbox" name="ingredient" value="Blend de 150g" checked> Blend de 150g (base)</label>
+                <label><input type="checkbox" name="ingredient" value="Bacon crocante"> Bacon crocante</label>
+                <label><input type="checkbox" name="ingredient" value="Queijo mussarela"> Queijo mussarela</label>
+                <label><input type="checkbox" name="ingredient" value="Queijo cheddar"> Queijo cheddar</label>
+                <label><input type="checkbox" name="ingredient" value="Queijo gorgonzola"> Queijo gorgonzola</label>
+                <label><input type="checkbox" name="ingredient" value="Crispy de cebola"> Crispy de cebola</label>
+                <label><input type="checkbox" name="ingredient" value="Crispy de mortadela defumada"> Crispy de mortadela defumada</label>
+                <label><input type="checkbox" name="ingredient" value="Cebola roxa"> Cebola roxa</label>
+                <label><input type="checkbox" name="ingredient" value="Cebola caramelizada"> Cebola caramelizada</label>
+                <label><input type="checkbox" name="ingredient" value="Alface"> Alface</label>
+                <label><input type="checkbox" name="ingredient" value="Tomate"> Tomate</label>
+                <label><input type="checkbox" name="ingredient" value="Batata palha caseira"> Batata palha caseira</label>
+                <label><input type="checkbox" name="ingredient" value="Molho de alho da casa"> Molho de alho da casa</label>
+            </div>
+            <div id="name-section">
+                <h2>Informe seu Nome</h2>
+                <input type="text" id="customer-name" placeholder="Seu nome aqui" required>
+            </div>
+            <button id="finalize">Finalizar Pedido</button>
+        </div>
+    </div>
+
+    <script>
+        const startButton = document.getElementById('start');
+        const breadSection = document.getElementById('bread-section');
+        const ingredientsSection = document.getElementById('ingredients-section');
+        const nextButton = document.getElementById('next-to-ingredients');
+        const finalizeButton = document.getElementById('finalize');
+        const customerNameInput = document.getElementById('customer-name');
+
+        startButton.addEventListener('click', () => {
+            startButton.style.display = 'none';
+            breadSection.classList.add('active');
+        });
+
+        nextButton.addEventListener('click', () => {
+            const selectedBread = document.querySelector('input[name="bread"]:checked');
+            if (!selectedBread) {
+                alert('Por favor, escolha um pão!');
+                return;
+            }
+            breadSection.classList.remove('active');
+            ingredientsSection.classList.add('active');
+        });
+
+        finalizeButton.addEventListener('click', () => {
+            const selectedBread = document.querySelector('input[name="bread"]:checked').value;
+            const selectedIngredients = Array.from(document.querySelectorAll('input[name="ingredient"]:checked'))
+                .map(ing => ing.value);
+            const customerName = customerNameInput.value.trim();
+
+            if (!customerName) {
+                alert('Por favor, informe seu nome!');
+                return;
+            }
+
+            // Gerar índice crescente usando localStorage (persiste no navegador do usuário)
+            let orderIndex = parseInt(localStorage.getItem('orderIndex') || '0');
+            localStorage.setItem('orderIndex', (orderIndex + 1).toString());
+
+            let orderMessage = `Pedido #${orderIndex} - Nome: ${customerName}\nPão: ${selectedBread}\nIngredientes: ${selectedIngredients.join(', ')}`;
+
+            const phoneNumber = '+5533984570099'; // número do restaurante (sem +)
+
+if (navigator.share) {
+    navigator.share({
+        title: 'Pedido - Hamburgueria Delícia',
+        text: orderMessage
+    }).then(() => {
+        alert('Pedido enviado com sucesso!');
+    }).catch(() => {
+        alert('Envio cancelado.');
+    });
+} else {
+    // Fallback automático para SMS
+    const smsUrl = `sms:${phoneNumber}?body=${encodeURIComponent(orderMessage)}`;
+    window.location.href = smsUrl;
+}
+
+        });
+    </script>
+</body>
+</html>
