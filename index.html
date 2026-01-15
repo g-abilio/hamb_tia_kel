@@ -6,7 +6,7 @@
     <title>Hamburgueria da Tia Kel</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Montserrat;
             background-color: #f4f4f4;
             color: #333;
             margin: 0;
@@ -31,12 +31,27 @@
         }
 
         h1 {
-            color: #d32f2f;
+            color: gold;
             margin-bottom: 20px;
+            text-shadow: 
+                1px 1px 0 black,   /* Sombra inferior-direita branca */
+                -1px -1px 0 black, /* Sombra superior-esquerda branca */
+                1px -1px 0 black,  /* Sombra superior-direita branca */
+                -1px 1px 0 black;
+        }
+
+        h2 {
+            color: gold;
+            margin-bottom: 20px;
+            text-shadow: 
+                1px 1px 0 black,   /* Sombra inferior-direita branca */
+                -1px -1px 0 black, /* Sombra superior-esquerda branca */
+                1px -1px 0 black,  /* Sombra superior-direita branca */
+                -1px 1px 0 black;
         }
 
         button {
-            background-color: #d32f2f;
+            background-color: darkgoldenrod;
             color: white;
             border: none;
             padding: 15px 30px;
@@ -47,7 +62,7 @@
         }
 
         button:hover {
-            background-color: #b71c1c;
+            background-color: darkgoldenrod;
         }
 
         .section {
@@ -57,6 +72,10 @@
 
         .section.active {
             display: block;
+        }
+
+        .center-image {
+            text-align: center;
         }
 
         label {
@@ -99,7 +118,10 @@
 <body>
     <div class="container">
         <h1>Hamburgueria da Tia Kel</h1>
-        <p>Bem-vindo! Monte seu hambúrguer personalizado.</p>
+        <h2>Hambúrguer, amigos, modão e carnaval!</h2>
+        <div class="center-image">
+            <img src="images/logo.jpeg" width="200" />
+        </div>
         <button id="start">Monte seu Hambúrguer</button>
 
         <div id="bread-section" class="section">
