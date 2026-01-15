@@ -6,7 +6,7 @@
     <title>Hamburgueria da Tia Kel</title>
     <style>
         body {
-            font-family: Montserrat;
+            font-family: Montserrat, Arial, sans-serif;
             background-color: #f4f4f4;
             color: #333;
             margin: 0;
@@ -15,149 +15,196 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: url('https://source.unsplash.com/random/1920x1080/?burger'); /* Imagem de fundo temática */
+            background-image: url('https://source.unsplash.com/random/1920x1080/?burger');
             background-size: cover;
             background-position: center;
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.92);
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            max-width: 620px;
             width: 100%;
             text-align: center;
         }
 
-        h1 {
+        h1, h2, h3 {
             color: gold;
-            margin-bottom: 20px;
             text-shadow: 
-                1px 1px 0 black,   /* Sombra inferior-direita branca */
-                -1px -1px 0 black, /* Sombra superior-esquerda branca */
-                1px -1px 0 black,  /* Sombra superior-direita branca */
-                -1px 1px 0 black;
-        }
-
-        h2 {
-            color: gold;
-            margin-bottom: 20px;
-            text-shadow: 
-                1px 1px 0 black,   /* Sombra inferior-direita branca */
-                -1px -1px 0 black, /* Sombra superior-esquerda branca */
-                1px -1px 0 black,  /* Sombra superior-direita branca */
-                -1px 1px 0 black;
+                1px 1px 0 #000,
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000;
+            margin-bottom: 15px;
         }
 
         button {
             background-color: darkgoldenrod;
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 14px 32px;
             font-size: 18px;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            margin: 15px 0;
         }
 
         button:hover {
-            background-color: darkgoldenrod;
+            background-color: #b8860b;
+            transform: translateY(-2px);
         }
 
         .section {
             display: none;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         .section.active {
             display: block;
         }
 
-        .center-image {
-            text-align: center;
-        }
-
         label {
-            display: block;
-            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
             font-size: 16px;
+            color: #222;
+            cursor: pointer;
         }
 
         input[type="radio"],
         input[type="checkbox"] {
-            margin-right: 10px;
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        img.ingredient-img {
+            width: 36px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-right: 12px;
+            border: 1px solid #ddd;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
         }
 
         .ingredient-list {
             text-align: left;
-            max-height: 300px;
+            max-height: 340px;
             overflow-y: auto;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px;
+            border: 1px solid darkgoldenrod;
+            border-radius: 8px;
             background-color: #fff;
         }
 
-        #name-section {
-            margin-top: 20px;
-        }
-
         #customer-name {
-            padding: 10px;
+            padding: 12px;
             font-size: 16px;
-            width: 80%;
-            margin-bottom: 10px;
+            width: 85%;
+            max-width: 400px;
+            margin: 15px 0;
+            border: 2px solid darkgoldenrod;
+            border-radius: 8px;
         }
 
-        #finalize {
-            margin-top: 20px;
+        /* Scrollbar estilizada */
+        .ingredient-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .ingredient-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .ingredient-list::-webkit-scrollbar-thumb {
+            background: darkgoldenrod;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>Hamburgueria da Tia Kel</h1>
         <h2>Hambúrguer, amigos, modão e carnaval!</h2>
-        <div class="center-image">
-            <img src="images/logo.jpeg" width="200" />
+        
+        <div class="center-image" style="margin: 20px 0;">
+            <img src="images/logo.jpeg" width="200" alt="Logo Hamburgueria da Tia Kel">
         </div>
+
         <button id="start">Monte seu Hambúrguer</button>
 
+        <!-- ESCOLHA DO PÃO -->
         <div id="bread-section" class="section">
             <h2>Escolha seu Pão</h2>
-            <label><input type="radio" name="bread" value="Ciabatta"> Pão Ciabatta</label>
-            <label><input type="radio" name="bread" value="Pão gergelim"> Pão de gergelim</label>
-            <button id="next-to-ingredients">Próximo</button>
+            <label>
+                <input type="radio" name="bread" value="Ciabatta">
+                <img src="https://amopaocaseiro.com.br/wp-content/uploads/2020/05/ciabatta-receita-IMG_4462.jpg" 
+                     class="ingredient-img" alt="Pão Ciabatta">
+                Pão Ciabatta
+            </label>
+            <label>
+                <input type="radio" name="bread" value="Pão gergelim">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnHgE2qAe2yo-A5zQ3-nsxA3IIi0H-EI8TOQ&s" 
+                     class="ingredient-img" alt="Pão de Gergelim">
+                Pão de Gergelim
+            </label>
+            <button id="next-to-ingredients">Próximo →</button>
         </div>
 
+        <!-- INGREDIENTES -->
         <div id="ingredients-section" class="section">
-            <h2>Escolha seus Adicionais e Ingredientes</h2>
+            <h2>Monte seu Hambúrguer</h2>
             <div class="ingredient-list">
+
                 <h3>Blend</h3>
-                <label>Blend de 150g (base): <input type="number" name="blend-quantity" min="1" value="1" step="1"></label>
+                <label>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZha4YjTOvgwGGPKBVcsCm2Zf6PfbkftaqNw&s" 
+                         class="ingredient-img" alt="Blend">
+                    Blend de 150g: 
+                    <input type="number" name="blend-quantity" min="1" value="1" step="1" style="width:60px; margin-left:10px;">
+                </label>
 
                 <h3>Adicionais</h3>
-                <label><input type="checkbox" name="ingredient" value="Bacon crocante"> Bacon crocante</label>
-                <label><input type="checkbox" name="ingredient" value="Queijo mussarela"> Queijo mussarela</label>
-                <label><input type="checkbox" name="ingredient" value="Queijo cheddar"> Queijo cheddar</label>
-                <label><input type="checkbox" name="ingredient" value="Queijo gorgonzola"> Queijo gorgonzola</label>
-                <label><input type="checkbox" name="ingredient" value="Crispy de cebola"> Crispy de cebola</label>
-                <label><input type="checkbox" name="ingredient" value="Crispy de mortadela defumada"> Crispy de mortadela defumada</label>
-                <label><input type="checkbox" name="ingredient" value="Batata palha caseira"> Batata palha caseira</label>
-                <label><input type="checkbox" name="ingredient" value="Molho de alho da casa"> Molho de alho da casa</label>
-                <label><input type="checkbox" name="ingredient" value="Cebola caramelizada"> Cebola caramelizada</label>
+                <label><input type="checkbox" name="ingredient" value="Bacon crocante">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6_21Dje0Aesi8ULn3GBXF430Ab2uriuciHQ&s" class="ingredient-img"> Bacon crocante</label>
+                <label><input type="checkbox" name="ingredient" value="Queijo mussarela">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTexN865EFfMgXWooKgfiWWOfYqkoK3IwX36w&s" class="ingredient-img"> Queijo mussarela</label>
+                <label><input type="checkbox" name="ingredient" value="Queijo cheddar">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuKuus4EXV9fqCCN14xgqxn6fZPTE-IPMNGlGf6NVU71L_Lo_ayAlenq378FcH0ILebxSkGXaEJzWvipQWGEQmg8Vggnd3ZF5K9AgkPGI6EMFqMFW1rLx4FeFXazee0G_wvfRzD_G0d-o/s1600/CHEDDAR.jpg" class="ingredient-img"> Queijo cheddar</label>
+                <label><input type="checkbox" name="ingredient" value="Queijo gorgonzola">
+                    <img src="https://images.unsplash.com/photo-1626957341926-98752fc2ba90?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" class="ingredient-img"> Queijo gorgonzola</label>
+                <label><input type="checkbox" name="ingredient" value="Crispy de cebola">
+                    <img src="https://cozinhatecnica.com/wp-content/uploads/2020/04/receita-de-cebola-crispy.jpg" class="ingredient-img"> Crispy de cebola</label>
+                <label><input type="checkbox" name="ingredient" value="Crispy de mortadela defumada">
+                    <img src="https://www.seara.com.br/wp-content/uploads/2025/09/chips-de-mortadela-defumada-portal-minha-receita.webp" class="ingredient-img"> Crispy de mortadela defumada</label>
+                <label><input type="checkbox" name="ingredient" value="Batata palha caseira">
+                    <img src="https://www.sabornamesa.com.br/media/k2/items/cache/fdde1da287ef645878d672d35edb2d9e_XL.jpg" class="ingredient-img"> Batata palha caseira</label>
+                <label><input type="checkbox" name="ingredient" value="Molho de alho da casa">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTW8HSFgMP9mXvjTynwDkvCApvSMkrGjClfg&s" class="ingredient-img"> Molho de alho da casa</label>
+                <label><input type="checkbox" name="ingredient" value="Cebola caramelizada">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5X6htJAefNvP39waK-J3PM8xrpkRq3P1-hw&s" class="ingredient-img"> Cebola caramelizada</label>
 
                 <h3>Salada</h3>
-                <label><input type="checkbox" name="ingredient" value="Cebola roxa"> Cebola roxa</label>
-                <label><input type="checkbox" name="ingredient" value="Alface"> Alface</label>
-                <label><input type="checkbox" name="ingredient" value="Tomate"> Tomate</label>
+                <label><input type="checkbox" name="ingredient" value="Cebola roxa">
+                    <img src="https://phygital-files.mercafacil.com/armazem-maria/uploads/produto/cebola_roxa_kg_06b05036-d302-44be-b32e-7420fc74c10e.jpg" class="ingredient-img"> Cebola roxa</label>
+                <label><input type="checkbox" name="ingredient" value="Alface">
+                    <img src="https://organicosinbox.com.br/wp-content/uploads/2020/11/alface-crespa-organica.jpg" class="ingredient-img"> Alface</label>
+                <label><input type="checkbox" name="ingredient" value="Tomate">
+                    <img src="https://www.infoescola.com/wp-content/uploads/2011/01/tomate_345187874.jpg" class="ingredient-img"> Tomate</label>
             </div>
+
             <div id="name-section">
-                <h2>Informe seu Nome</h2>
-                <input type="text" id="customer-name" placeholder="Seu nome aqui" required>
+                <h2>Seu Nome</h2>
+                <input type="text" id="customer-name" placeholder="Digite seu nome aqui" required>
             </div>
-            <button id="finalize">Finalizar Pedido</button>
+
+            <button id="finalize">Finalizar Pedido →</button>
         </div>
     </div>
 
@@ -175,9 +222,8 @@
         });
 
         nextButton.addEventListener('click', () => {
-            const selectedBread = document.querySelector('input[name="bread"]:checked');
-            if (!selectedBread) {
-                alert('Por favor, escolha um pão!');
+            if (!document.querySelector('input[name="bread"]:checked')) {
+                alert('Escolha um tipo de pão, por favor!');
                 return;
             }
             breadSection.classList.remove('active');
@@ -185,29 +231,31 @@
         });
 
         finalizeButton.addEventListener('click', () => {
-            const selectedBread = document.querySelector('input[name="bread"]:checked').value;
-            const selectedIngredients = Array.from(document.querySelectorAll('input[name="ingredient"]:checked'))
-                .map(ing => ing.value);
+            const selectedBread = document.querySelector('input[name="bread"]:checked')?.value;
+            const selectedIngredients = [...document.querySelectorAll('input[name="ingredient"]:checked')]
+                .map(el => el.value);
             const customerName = customerNameInput.value.trim();
 
             if (!customerName) {
-                alert('Por favor, informe seu nome!');
+                alert('Por favor, digite seu nome!');
                 return;
             }
 
-            // Gerar índice crescente usando localStorage (persiste no navegador do usuário)
-            let orderIndex = parseInt(localStorage.getItem('orderIndex') || '0');
-            localStorage.setItem('orderIndex', (orderIndex + 1).toString());
+            if (!selectedBread) {
+                alert('Você precisa escolher um pão!');
+                return;
+            }
 
-            let orderMessage = `Pedido #${orderIndex} - Nome: ${customerName}\nPão: ${selectedBread}\nIngredientes: ${selectedIngredients.join(', ')}`;
+            let orderIndex = parseInt(localStorage.getItem('orderIndex') || '0') + 1;
+            localStorage.setItem('orderIndex', orderIndex);
 
-            // Enviar para WhatsApp
+            const orderMessage = `*● Pedido #${orderIndex}*\n*● Nome*: ${customerName}\n*● Pão*: ${selectedBread}\n*● Ingredientes*: ${selectedIngredients.join(', ') || 'nenhum adicional'}`;
+
             const whatsappNumber = '+5533984570099';
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderMessage)}`;
+            
             window.open(whatsappUrl, '_blank');
-
-            // Mostrar popup
-            alert('O pedido foi feito! Você será redirecionado para o WhatsApp.');
+            alert('Pedido enviado com sucesso! Você será redirecionado para o WhatsApp.');
         });
     </script>
 </body>
