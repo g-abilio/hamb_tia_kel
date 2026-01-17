@@ -111,7 +111,6 @@
             border-radius: 8px;
         }
 
-        /* Scrollbar estilizada */
         .ingredient-list::-webkit-scrollbar {
             width: 8px;
         }
@@ -234,6 +233,10 @@
             const selectedBread = document.querySelector('input[name="bread"]:checked')?.value;
             const selectedIngredients = [...document.querySelectorAll('input[name="ingredient"]:checked')]
                 .map(el => el.value);
+            
+            // Pegamos a quantidade de blend
+            const blendQuantity = document.querySelector('input[name="blend-quantity"]').value;
+
             const customerName = customerNameInput.value.trim();
 
             if (!customerName) {
@@ -249,7 +252,13 @@
             let orderIndex = parseInt(localStorage.getItem('orderIndex') || '0') + 1;
             localStorage.setItem('orderIndex', orderIndex);
 
-            const orderMessage = `*● Pedido #${orderIndex}*\n*● Nome*: ${customerName}\n*● Pão*: ${selectedBread}\n*● Ingredientes*: ${selectedIngredients.join(', ') || 'nenhum adicional'}`;
+            // Montamos a mensagem com a quantidade de blend
+            const orderMessage = 
+                `*● Pedido #${orderIndex}*\n` +
+                `*● Nome*: ${customerName}\n` +
+                `*● Pão*: ${selectedBread}\n` +
+                `*● Blend*: ${blendQuantity} x 150g\n` +
+                `*● Ingredientes*: ${selectedIngredients.join(', ') || 'nenhum adicional'}`;
 
             const whatsappNumber = '+5533984068666';
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderMessage)}`;
