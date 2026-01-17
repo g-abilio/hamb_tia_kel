@@ -124,6 +124,74 @@
             background: darkgoldenrod;
             border-radius: 4px;
         }
+
+        /* Estilos do Popup de Avaliação */
+        #ratingPopup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+            text-align: center;
+        }
+
+        .stars {
+            font-size: 48px;
+            margin: 25px 0;
+            user-select: none;
+        }
+
+        .star {
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.15s;
+            margin: 0 6px;
+        }
+
+        .star:hover,
+        .star.active,
+        .star.selected {
+            color: gold;
+            transform: scale(1.15);
+        }
+
+        #ratingMessage {
+            font-size: 18px;
+            margin: 15px 0;
+            min-height: 30px;
+            color: #444;
+        }
+
+        .popup-buttons button {
+            padding: 12px 32px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px;
+        }
+
+        #submitRating {
+            background: darkgoldenrod;
+            color: white;
+            border: none;
+        }
+
+        #closeRating {
+            background: #e0e0e0;
+            color: #333;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -132,7 +200,7 @@
         <h1>Hamburgueria da Tia Kel</h1>
         <h2>Hambúrguer, amigos, modão e carnaval!</h2>
         
-        <div class="center-image" style="margin: 20px 0;">
+        <div style="margin: 20px 0;">
             <img src="images/logo-removebg-preview.png" width="200" alt="Logo Hamburgueria da Tia Kel">
         </div>
 
@@ -143,14 +211,12 @@
             <h2>Escolha seu Pão</h2>
             <label>
                 <input type="radio" name="bread" value="Ciabatta">
-                <img src="https://amopaocaseiro.com.br/wp-content/uploads/2020/05/ciabatta-receita-IMG_4462.jpg" 
-                     class="ingredient-img" alt="Pão Ciabatta">
+                <img src="https://amopaocaseiro.com.br/wp-content/uploads/2020/05/ciabatta-receita-IMG_4462.jpg" class="ingredient-img" alt="Pão Ciabatta">
                 Pão Ciabatta
             </label>
             <label>
                 <input type="radio" name="bread" value="Pão gergelim">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnHgE2qAe2yo-A5zQ3-nsxA3IIi0H-EI8TOQ&s" 
-                     class="ingredient-img" alt="Pão de Gergelim">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnHgE2qAe2yo-A5zQ3-nsxA3IIi0H-EI8TOQ&s" class="ingredient-img" alt="Pão de Gergelim">
                 Pão de Gergelim
             </label>
             <button id="next-to-ingredients">Próximo →</button>
@@ -160,42 +226,28 @@
         <div id="ingredients-section" class="section">
             <h2>Monte seu Hambúrguer</h2>
             <div class="ingredient-list">
-
                 <h3>Blend</h3>
                 <label>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZha4YjTOvgwGGPKBVcsCm2Zf6PfbkftaqNw&s" 
-                         class="ingredient-img" alt="Blend">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZha4YjTOvgwGGPKBVcsCm2Zf6PfbkftaqNw&s" class="ingredient-img" alt="Blend">
                     Blend na brasa de 150g: 
                     <input type="number" name="blend-quantity" min="1" value="1" step="1" style="width:60px; margin-left:10px;">
                 </label>
 
                 <h3>Adicionais</h3>
-                <label><input type="checkbox" name="ingredient" value="Bacon crocante">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6_21Dje0Aesi8ULn3GBXF430Ab2uriuciHQ&s" class="ingredient-img"> Bacon crocante</label>
-                <label><input type="checkbox" name="ingredient" value="Queijo mussarela">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTexN865EFfMgXWooKgfiWWOfYqkoK3IwX36w&s" class="ingredient-img"> Queijo mussarela</label>
-                <label><input type="checkbox" name="ingredient" value="Queijo cheddar">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuKuus4EXV9fqCCN14xgqxn6fZPTE-IPMNGlGf6NVU71L_Lo_ayAlenq378FcH0ILebxSkGXaEJzWvipQWGEQmg8Vggnd3ZF5K9AgkPGI6EMFqMFW1rLx4FeFXazee0G_wvfRzD_G0d-o/s1600/CHEDDAR.jpg" class="ingredient-img"> Queijo cheddar</label>
-                <label><input type="checkbox" name="ingredient" value="Queijo gorgonzola">
-                    <img src="https://images.unsplash.com/photo-1626957341926-98752fc2ba90?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" class="ingredient-img"> Queijo gorgonzola</label>
-                <label><input type="checkbox" name="ingredient" value="Crispy de cebola">
-                    <img src="https://cozinhatecnica.com/wp-content/uploads/2020/04/receita-de-cebola-crispy.jpg" class="ingredient-img"> Crispy de cebola</label>
-                <label><input type="checkbox" name="ingredient" value="Crispy de mortadela defumada">
-                    <img src="https://www.seara.com.br/wp-content/uploads/2025/09/chips-de-mortadela-defumada-portal-minha-receita.webp" class="ingredient-img"> Crispy de mortadela defumada</label>
-                <label><input type="checkbox" name="ingredient" value="Batata palha caseira">
-                    <img src="https://www.sabornamesa.com.br/media/k2/items/cache/fdde1da287ef645878d672d35edb2d9e_XL.jpg" class="ingredient-img"> Batata palha caseira</label>
-                <label><input type="checkbox" name="ingredient" value="Molho de alho da casa">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTW8HSFgMP9mXvjTynwDkvCApvSMkrGjClfg&s" class="ingredient-img"> Molho de alho da casa</label>
-                <label><input type="checkbox" name="ingredient" value="Cebola caramelizada">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5X6htJAefNvP39waK-J3PM8xrpkRq3P1-hw&s" class="ingredient-img"> Cebola caramelizada</label>
+                <label><input type="checkbox" name="ingredient" value="Bacon crocante"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6_21Dje0Aesi8ULn3GBXF430Ab2uriuciHQ&s" class="ingredient-img"> Bacon crocante</label>
+                <label><input type="checkbox" name="ingredient" value="Queijo mussarela"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTexN865EFfMgXWooKgfiWWOfYqkoK3IwX36w&s" class="ingredient-img"> Queijo mussarela</label>
+                <label><input type="checkbox" name="ingredient" value="Queijo cheddar"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuKuus4EXV9fqCCN14xgqxn6fZPTE-IPMNGlGf6NVU71L_Lo_ayAlenq378FcH0ILebxSkGXaEJzWvipQWGEQmg8Vggnd3ZF5K9AgkPGI6EMFqMFW1rLx4FeFXazee0G_wvfRzD_G0d-o/s1600/CHEDDAR.jpg" class="ingredient-img"> Queijo cheddar</label>
+                <label><input type="checkbox" name="ingredient" value="Queijo gorgonzola"><img src="https://images.unsplash.com/photo-1626957341926-98752fc2ba90?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" class="ingredient-img"> Queijo gorgonzola</label>
+                <label><input type="checkbox" name="ingredient" value="Crispy de cebola"><img src="https://cozinhatecnica.com/wp-content/uploads/2020/04/receita-de-cebola-crispy.jpg" class="ingredient-img"> Crispy de cebola</label>
+                <label><input type="checkbox" name="ingredient" value="Crispy de mortadela defumada"><img src="https://www.seara.com.br/wp-content/uploads/2025/09/chips-de-mortadela-defumada-portal-minha-receita.webp" class="ingredient-img"> Crispy de mortadela defumada</label>
+                <label><input type="checkbox" name="ingredient" value="Batata palha caseira"><img src="https://www.sabornamesa.com.br/media/k2/items/cache/fdde1da287ef645878d672d35edb2d9e_XL.jpg" class="ingredient-img"> Batata palha caseira</label>
+                <label><input type="checkbox" name="ingredient" value="Molho de alho da casa"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTW8HSFgMP9mXvjTynwDkvCApvSMkrGjClfg&s" class="ingredient-img"> Molho de alho da casa</label>
+                <label><input type="checkbox" name="ingredient" value="Cebola caramelizada"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5X6htJAefNvP39waK-J3PM8xrpkRq3P1-hw&s" class="ingredient-img"> Cebola caramelizada</label>
 
                 <h3>Salada</h3>
-                <label><input type="checkbox" name="ingredient" value="Cebola roxa">
-                    <img src="https://phygital-files.mercafacil.com/armazem-maria/uploads/produto/cebola_roxa_kg_06b05036-d302-44be-b32e-7420fc74c10e.jpg" class="ingredient-img"> Cebola roxa</label>
-                <label><input type="checkbox" name="ingredient" value="Alface">
-                    <img src="https://organicosinbox.com.br/wp-content/uploads/2020/11/alface-crespa-organica.jpg" class="ingredient-img"> Alface</label>
-                <label><input type="checkbox" name="ingredient" value="Tomate">
-                    <img src="https://www.infoescola.com/wp-content/uploads/2011/01/tomate_345187874.jpg" class="ingredient-img"> Tomate</label>
+                <label><input type="checkbox" name="ingredient" value="Cebola roxa"><img src="https://phygital-files.mercafacil.com/armazem-maria/uploads/produto/cebola_roxa_kg_06b05036-d302-44be-b32e-7420fc74c10e.jpg" class="ingredient-img"> Cebola roxa</label>
+                <label><input type="checkbox" name="ingredient" value="Alface"><img src="https://organicosinbox.com.br/wp-content/uploads/2020/11/alface-crespa-organica.jpg" class="ingredient-img"> Alface</label>
+                <label><input type="checkbox" name="ingredient" value="Tomate"><img src="https://www.infoescola.com/wp-content/uploads/2011/01/tomate_345187874.jpg" class="ingredient-img"> Tomate</label>
             </div>
 
             <div id="name-section">
@@ -207,6 +259,28 @@
         </div>
     </div>
 
+    <!-- POPUP DE AVALIAÇÃO -->
+    <div id="ratingPopup">
+        <div class="popup-content">
+            <h2 style="color: darkgoldenrod;">Como foi seu atendimento hoje?</h2>
+            
+            <div class="stars" id="stars">
+                <span class="star" data-value="1">☆</span>
+                <span class="star" data-value="2">☆</span>
+                <span class="star" data-value="3">☆</span>
+                <span class="star" data-value="4">☆</span>
+                <span class="star" data-value="5">☆</span>
+            </div>
+
+            <div id="ratingMessage">Selecione sua nota...</div>
+
+            <div class="popup-buttons">
+                <button id="submitRating">Enviar avaliação</button>
+                <button id="closeRating">Fechar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const startButton = document.getElementById('start');
         const breadSection = document.getElementById('bread-section');
@@ -214,6 +288,7 @@
         const nextButton = document.getElementById('next-to-ingredients');
         const finalizeButton = document.getElementById('finalize');
         const customerNameInput = document.getElementById('customer-name');
+        const ratingPopup = document.getElementById('ratingPopup');
 
         startButton.addEventListener('click', () => {
             startButton.style.display = 'none';
@@ -229,14 +304,12 @@
             ingredientsSection.classList.add('active');
         });
 
+        // finalizar pedido + mostrar avaliação
         finalizeButton.addEventListener('click', () => {
             const selectedBread = document.querySelector('input[name="bread"]:checked')?.value;
             const selectedIngredients = [...document.querySelectorAll('input[name="ingredient"]:checked')]
                 .map(el => el.value);
-            
-            // Pegamos a quantidade de blend
             const blendQuantity = document.querySelector('input[name="blend-quantity"]').value;
-
             const customerName = customerNameInput.value.trim();
 
             if (!customerName) {
@@ -252,7 +325,6 @@
             let orderIndex = parseInt(localStorage.getItem('orderIndex') || '0') + 1;
             localStorage.setItem('orderIndex', orderIndex);
 
-            // Montamos a mensagem com a quantidade de blend
             const orderMessage = 
                 `*● Pedido #${orderIndex}*\n` +
                 `*● Nome*: ${customerName}\n` +
@@ -264,8 +336,79 @@
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(orderMessage)}`;
             
             window.open(whatsappUrl, '_blank');
-            alert('Pedido enviado com sucesso! Você será redirecionado para o WhatsApp.');
+
+            alert('Pedido enviado com sucesso!');
+
+            ratingPopup.style.display = 'flex';
         });
+
+        const stars = document.querySelectorAll('.star');
+        const ratingMessage = document.getElementById('ratingMessage');
+        let selectedRating = 0;
+
+        const messages = [
+            "",
+            "Muito ruim 😞",
+            "Poderia melhorar 😕",
+            "Está ok 🙂",
+            "Gostei bastante 😊",
+            "Excelente! Recomendo muito! 🔥"
+        ];
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                selectedRating = parseInt(star.dataset.value);
+                
+                stars.forEach(s => {
+                    const val = parseInt(s.dataset.value);
+                    if (val <= selectedRating) {
+                        s.classList.add('selected');
+                        s.textContent = '★';
+                    } else {
+                        s.classList.remove('selected');
+                        s.textContent = '☆';
+                    }
+                });
+
+                ratingMessage.textContent = messages[selectedRating] || "Selecione sua nota...";
+            });
+
+            star.addEventListener('mouseover', () => {
+                const hoverValue = parseInt(star.dataset.value);
+                stars.forEach(s => {
+                    const val = parseInt(s.dataset.value);
+                    if (val <= hoverValue) {
+                        s.classList.add('active');
+                        s.textContent = '★';
+                    } else {
+                        s.classList.remove('active');
+                        s.textContent = '☆';
+                    }
+                });
+            });
+
+            star.addEventListener('mouseout', () => {
+                stars.forEach(s => {
+                    s.classList.remove('active');
+                    if (!s.classList.contains('selected')) {
+                        s.textContent = '☆';
+                    }
+                });
+            });
+        });
+
+        document.getElementById('submitRating').onclick = () => {
+            if (selectedRating === 0) {
+                alert("Por favor, selecione pelo menos 1 estrela!");
+                return;
+            }
+            alert(`Obrigado pela sua avaliação de ${selectedRating} estrelas! Deixe seu comentário no TURMA DA TIA KEL!`);
+            ratingPopup.style.display = 'none';
+        };
+
+        document.getElementById('closeRating').onclick = () => {
+            ratingPopup.style.display = 'none';
+        };
     </script>
 </body>
 </html>
